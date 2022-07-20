@@ -1,0 +1,12 @@
+package ex01_variable;
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		// 문자열 타입
+		// 기본 타입(Primitive type) 은 아니다.
+
+	}
+
+}

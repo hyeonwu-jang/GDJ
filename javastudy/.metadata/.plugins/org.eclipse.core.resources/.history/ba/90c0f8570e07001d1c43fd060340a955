@@ -1,0 +1,65 @@
+package ex02_casting;
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		
+		// 연습 
+		
+		String strQ = "1";
+		String strW = "1000000000000000";
+		String strE = "1.1";
+		String strR = "1";
+		
+		byte q = Byte.parseByte(strQ);
+		long w = Long.parseLong(strW);
+		double e = Double.parseDouble(strE);
+		
+		
+		
+		
+		String strA = "11";
+		int a = Integer.parseInt(strA);
+		
+		String strB = "10000000000";
+		Long b = Long.parseLong(strB);
+		
+		String strC = "4.5";
+		Double c = Double.parseDouble(strC);
+		
+		int d = 10;
+		String strD = String.valueOf(d);
+		
+		int e = 13;
+		String strE = String.valueOf(e);
+		
+		//
+		
+		
+		
+		String strScore = "100";
+		String strMoney = "10000000000";
+		String strGrade = "4.5";
+		
+		// 문자열로 입력받은 값을 숫자데이터로 변환하기
+		// 아래 변환은 매우 중요하다.
+		int score = Integer.parseInt(strScore);
+		long money = Long.parseLong(strMoney);
+		double grade = Double.parseDouble(strGrade);
+		
+		System.out.println(score);
+		System.out.println(money);
+		System.out.println(grade);
+		
+		
+		// 숫자 데이터를 문자열로 변환하기
+		
+		
+		// 100 -> "100"
+		int age = 100;
+		String strAge = String.valueOf(age);
+		System.out.println(strAge);
+
+	}
+
+}

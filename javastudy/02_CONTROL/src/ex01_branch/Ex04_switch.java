@@ -45,6 +45,8 @@ public class Ex04_switch {
 		
 		System.out.println(floor + "층 관리자는 " + manager + "입니다.");
 		
+		/////////////////////////////////////////////////////////////////////////////
+		
 		// 연습
 		// 짝수, 홀수
 		int n = 1;
@@ -53,6 +55,8 @@ public class Ex04_switch {
 		case 0: System.out.println("짝수"); break;
 		default: System.out.println("홀수");
 		}
+		
+		
 		
 		// 연습
 		// 분기 출력하기
@@ -71,6 +75,8 @@ public class Ex04_switch {
 		case 2: System.out.println("3분기"); break;
 		case 3: System.out.println("4분기"); break;
 		}
+		
+		
 		
 		
 		// 연습
@@ -98,6 +104,8 @@ public class Ex04_switch {
 		
 		
 		
+		
+		
 		// 연습
 		// 등급(1,2,3)에 따른 권한 출력
 		// 1등급 : 쓰기 실행 읽기
@@ -110,7 +118,7 @@ public class Ex04_switch {
 		case 1: right += "쓰기";
 		case 2: right += "실행";
 		case 3: right += "읽기"; break;
-		default : right = "없음";
+		default : right += "없음";
 		
 		}
 		

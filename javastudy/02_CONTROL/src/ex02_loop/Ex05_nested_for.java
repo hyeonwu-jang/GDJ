@@ -4,13 +4,13 @@ public class Ex05_nested_for {
 
 	public static void main(String[] args) {
 		
-		// 1일차 1교시
-		// 1일차 2교시
-		// ...
-		// 1일차 8교시
-		// 2일차 1교시
-		// ...
-		// 3일차 8교시
+	// 1일차 1교시
+	// 1일차 2교시
+	// ...
+	// 1일차 8교시
+	// 2일차 1교시
+	// ...
+	// 3일차 8교시
 		
 		
 		
@@ -23,11 +23,11 @@ public class Ex05_nested_for {
 			
 		}
 		
-		// 구구단 문제
-		// 2x1=2
-		// 2x2=4
-		// ...
-		// 9x9=81
+	// 구구단 문제
+	// 2x1=2
+	// 2x2=4
+	// ...
+	// 9x9=81
 		
 		
 		
@@ -41,11 +41,11 @@ public class Ex05_nested_for {
 		}
 		
 		
-		// 연습
-		// 2x1=2
-		// 2x2=4
-		// ...
-		// 5x5=25
+	// 연습
+	// 2x1=2
+	// 2x2=4
+	// ...
+	// 5x5=25
 		
 		for(int dan = 2; dan <= 5; dan++) {
 			
@@ -71,9 +71,9 @@ public class Ex05_nested_for {
 		}
 		
 		
-		// 2x1=2	3x1=3	...	9x1=9
-		// 2x2=4	3x2=6	...	9x2=18
-		// ...
+	// 2x1=2	3x1=3	...	9x1=9
+	// 2x2=4	3x2=6	...	9x2=18
+	// ...
 		
 		System.out.println();
 		
@@ -82,7 +82,7 @@ public class Ex05_nested_for {
 			
 			for(int dan = 2; dan <= 9; dan++) {
 			
-				System.out.print(dan + "x" + n + "=" + (dan * n)+ '\t');
+				System.out.print(dan + "x" + n + "=" + (dan * n)+ "\t");
 			}
 			
 			System.out.println();
@@ -101,6 +101,69 @@ public class Ex05_nested_for {
 		}
 		
 		*/
+		
+		
+		
+	// 연습
+	// 2x1=2
+	// 2x2=4
+	// ...
+	// 5x5=25
+		
+		for(int dan = 2; dan <= 5; dan++) {
+			for(int n = 1; n <= 9; n++) {
+				
+				System.out.println(dan + "x" + n + "=" + (dan*n));
+				
+				if(dan == 5 && n == 5) {
+					break;
+				}
+			
+			}
+
+		}
+	
+	// 연습(라벨문 이용)
+	// 2x1=2
+	// 2x2=4
+	// ...
+	// 5x5=25
+		
+		outer2: for(int dan = 2; dan <= 9; dan++) {
+			for(int n = 1; n <= 9; n++) {
+				
+
+				System.out.println(dan + "x" + n + "=" + (dan*n));
+				
+				if(dan == 5 && n == 5) {
+					break outer2;							// <====== outer2 바깥 라벨을 입력하지 않으면 if 조건문에 해당하는 5x6, 5x7, 5x8, 5x9가 중단되고 밖으로 나가서 다시 6단부터 x9까지 실행한다.
+				}
+			
+			}
+
+		}
+		
+		
+		
+	
+	// 연습
+	// 2x1=2	3x1=3	...	9x1=9
+	// 2x2=4	3x2=6	...	9x2=18
+	// ...
+		
+		for(int n = 1; n <= 9; n++) {
+			
+			for(int dan = 2; dan <= 9; dan++){
+				
+				System.out.print(dan + "x" + n + "=" + (dan*n) + "\t");
+				
+			}
+			System.out.println();
+		}
+		
+		
+		
+		
 		
 		
 	}

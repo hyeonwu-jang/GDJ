@@ -86,16 +86,16 @@ public class Ex01_String {
 	// 		(2) 발견된 문자열이 없는 경우 -1을 반환
 		
 	//	2) lastIndexOf(문자열)
-	//		(1) 발견된 마지막 문자열의 인덱스를 반환 (ex. 우영우 => 2 반환)
+	//		(1) 발견된 마지막 문자열의 인덱스를 반환 (ex. 우영우 => 2 반환) <----------------------------- 문자열 중복 시 맨 뒤에 있는 문자열 반환
 	//		(2) 발견된 문자열이 없는 경우 -1을 반환
 		int idx1 = name.indexOf("장");
 		int idx2 = name.indexOf("현우");
 		int idx3 = name.lastIndexOf("장");
 		int idx4 = name.lastIndexOf("현우");
-		System.out.println(idx1);
-		System.out.println(idx2);
-		System.out.println(idx3);
-		System.out.println(idx4);
+		System.out.println(idx1); // 0
+		System.out.println(idx2); // 1
+		System.out.println(idx3); // 0
+		System.out.println(idx4); // 1
 		
 	// 7. 문자열이 특정 패턴으로 시작하는지 여부를 boolean(true, false) 반환
 	// startWith(문자열)

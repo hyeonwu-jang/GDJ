@@ -61,7 +61,8 @@ public class Ex01 {
 		}
 		System.out.println(code);
 		
-		
+		// 연습
+		// 6자리 영문(대문자 + 소문자) 인증번호 만들기
 		
 		
 		

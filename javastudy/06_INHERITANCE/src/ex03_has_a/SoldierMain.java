@@ -6,16 +6,15 @@ public class SoldierMain {
 		
 		Gun gun = new Gun();
 		gun.setModel("K2");
-		gun.setBullet(9);
+		gun.setBullet(20);
 		
 		Soldier soldier = new Soldier();
 		soldier.setGun(gun);
 		
 		// soldier가 총을 쏜다.
 		soldier.shoot();
-		
-		// soldier가 장전한다.
-		soldier.reload(1);
+		soldier.shoot();
+
 		
 		// soldier가 가지고 있는 gun의 model/bullet
 		System.out.println(soldier.getGun().getModel());

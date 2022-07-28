@@ -1,23 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.time.format.DateTimeFormatter"/>
-    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
-    <fullyQualifiedTypeName name="java.util.Date"/>
-    <fullyQualifiedTypeName name="java.sql.Date"/>
-<<<<<<< HEAD
-    <fullyQualifiedTypeName name="java.util.Scanner"/>
-=======
-    <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
-    <fullyQualifiedTypeName name="java.util.Arrays"/>
-    <fullyQualifiedTypeName name="ex01_field.User"/>
-    <fullyQualifiedTypeName name="ex02_field.Student"/>
-    <fullyQualifiedTypeName name="ex02_field.School"/>
-    <fullyQualifiedTypeName name="ex03_method.Calculator"/>
-    <fullyQualifiedTypeName name="ex04_method.VendingMachine"/>
-    <fullyQualifiedTypeName name="java.lang.Integer"/>
-    <fullyQualifiedTypeName name="ex06_method_overlord.Calculator"/>
-    <fullyQualifiedTypeName name="java.util.Scanner"/>
-    <fullyQualifiedTypeName name="java.util.Calendar"/>
->>>>>>> c57ed9f20bb22e311f82cbc5d98ce18b7fd2bb47
-</qualifiedTypeNameHistroy>
+<qualifiedTypeNameHistroy/>

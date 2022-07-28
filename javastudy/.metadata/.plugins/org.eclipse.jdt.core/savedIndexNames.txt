@@ -1,4 +1,15 @@
+<<<<<<< HEAD
 INDEX VERSION 1.131+C:\Users\82107\OneDrive\¹ÙÅÁ È­¸é\github\GDJ\javastudy\.metadata\.plugins\org.eclipse.jdt.core
 793262583.index
 3001251878.index
 4127804410.index
+=======
+INDEX VERSION 1.131+C:\GDJ\javastudy\.metadata\.plugins\org.eclipse.jdt.core
+793262583.index
+3001251878.index
+3324777928.index
+1742274360.index
+4127804410.index
+740092244.index
+2720240304.index
+>>>>>>> c57ed9f20bb22e311f82cbc5d98ce18b7fd2bb47

@@ -32,6 +32,7 @@ public class Ex04 {
 				i--;
 				continue;
 			}
+			
 			arr[i] = random;
 		}
 		

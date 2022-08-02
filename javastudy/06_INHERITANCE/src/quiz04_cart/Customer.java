@@ -67,8 +67,9 @@ public class Customer {
 		// 구매 총액 구하기 및 출력
 		
 		for(int i = 0; i < idx; i++) {
-			Product product = cart[i]; 																	// ?
+			Product product = cart[i]; 
 			System.out.println(product.getName() + "  " + product.getPrice() + "원");
+
 		}
 		
 		System.out.println("-----------------------------------------");

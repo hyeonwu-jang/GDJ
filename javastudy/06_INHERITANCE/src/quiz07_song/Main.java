@@ -4,8 +4,6 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		
-		
 		Singer singer = new Singer("선미", 2);
 		
 		Song song1 = new Song("노래1", 3.5);

@@ -44,56 +44,65 @@ public class WeekScheduler {
 	
 	private void changeSchedule() {
 		
-		
-	}
-	/*
 		System.out.println("▒▒▒ 수정 ▒▒▒");
-		System.out.println("변경할 요일 입력 >>> ");
+		System.out.print("변경할 요일 입력 >>> ");
 		
 		String dayName = sc.next().substring(0,1);
 		sc.nextLine();
 		
-		for(int i = 0; i < week.length; i++) {
-			
-			if(dayName.equals(dayNames[i])) {
-				System.out.println("변경할까요(y/n)?");
-				String yesNo = sc.next().substring(1,0);
-				
-				if(dayNames[i].equals(null)) {							// 요일이 널값이면
-					System.out.println("변경할 스케쥴 입력 >>> ");
-					
-					if(yesNo.equalsIgnoreCase("y")) {
-						
-						String schedule = sc.next();
-						sc.nextLine();
-						Day day = new Day();
-						day.setSchedule(schedule);
-						week[i] = day;
-						System.out.println(dayName + "요일의 스케쥴이 변경되었습니다.");
-						return;
-					
-					
-					
-					
-				} else {												// 요일이 널값이 아니면
-					System.out.println(dayName + "요일은 스케쥴이 없습니다.");
-					System.out.println("새 스케쥴을 등록할까요?(y/n) >>> ");
-					String yesNo2 = sc.next().substring(1,0);
+		for(int i = 0; i < week.length; i++) {		// 배열 검사용 반복문
+			if(dayName.equals(dayNames[i])) {		// 입력받은 dayName이 daynames[i]와 같으면 true	-> 
+				if(week[i] != null) {				// week[i] 자리가 비어있지 않으면
+					System.out.print("스케쥴을 변경하시겠습니까?(y/n) >>> ");
+					String yesNo = sc.next().substring(0,1);
 					sc.nextLine();
-					
-					if(yesNo2.equalsIgnoreCase("y")) {
-						System.out.println("새 스케쥴 입력 >>> ");
+					if(yesNo.equalsIgnoreCase("y")) {		// y를 입력하면
+						System.out.print("스케쥴 입력 >>> ");
 						String schedule = sc.next();
 						sc.nextLine();
 						Day day = new Day();
 						day.setSchedule(schedule);
 						week[i] = day;
-						System.out.println(dayName + "요일의 스케쥴이 등록되었습니다.");
+						System.out.println(dayName + "요일 스케쥴이 변경되었습니다.");
+						return;
+					} else { 					// n을 입력하면
+						System.out.println("스케쥴 변경을 취소합니다.");
+						return;
+					}
+				} else {	// week[i] 자리가 비어있으면
+					System.out.print(dayName + "요일의 스케쥴이 없습니다." + dayName + "요일에 스케쥴을 등록하시겠습니까? (y/n) >>> ");
+					String yesNo = sc.next().substring(0,1);
+					sc.nextLine();
+					if(yesNo.equalsIgnoreCase("y")) { 		// y를 입력하면
+						System.out.print("스케쥴 입력 >>> ");
+						String schedule = sc.next();
+						sc.nextLine();
+						Day day = new Day();
+						day.setSchedule(schedule);
+						week[i] = day;
+						System.out.println(dayName + "요일에 스케쥴이 등록되었습니다.");
+						return;
+					} else {
+						System.out.println("스케쥴 등록을 취소합니다.");
+						return;
+					}
+				}
+				
 					
+			} else { // 입력받은 dayName이 daynames[i]와 같지 않으면?
+				
+			}
+		}
+		System.out.println("입력이 잘못되었습니다. 확인해주세요.");
+		
+	}
+	
+		
+		
 	
 	
-	*/
 	
+
 	private void deleteSchedule() {
 		System.out.println("▒▒▒ 삭제 ▒▒▒");
 		System.out.println("삭제할 요일 입력 >>> ");

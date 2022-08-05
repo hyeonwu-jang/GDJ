@@ -1,5 +1,6 @@
 package parking;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ParkingLot {
@@ -15,10 +16,9 @@ public class ParkingLot {
 		sc = new Scanner(System.in);
 	}
 	
-	private void addCar() {
+	private void addCar() throws RuntimeException {
 		if(idx == cars.length) {
-			System.out.println("더 이상 차량 등록이 불가능합니다.");
-			return;
+			throw new RuntimeException("차량이 가득 찼습니다.");
 		}
 		
 		System.out.println("현재 등록된 차량 " + idx + "대");
@@ -37,11 +37,9 @@ public class ParkingLot {
 		
 	}
 		
-	private void deleteCar() {
-		
+	private void deleteCar() throws RuntimeException {
 		if(idx == 0) {
-			System.out.println("등록된 차량이 없습니다.");
-			return;
+			throw new RuntimeException("등록된 차량이 없습니다.");
 		}
 		
 		System.out.print("제거할 차량번호 >>> ");
@@ -61,14 +59,13 @@ public class ParkingLot {
 		System.out.println("대상 차량이 존재하지 않습니다.");
 	}
 	
-	private void printAllCars() {
-		
+	private void printAllCars() throws RuntimeException {
+	
 		if(idx == 0) {
-			System.out.println("등록된 차량이 없습니다.");
-			return;
+			throw new RuntimeException("등록된 차량이 없습니다.");
 		}
 		
-		System.out.println("대박주차장 차량 목록");
+		System.out.println(name + " 차량 목록");
 		for(int i = 0; i < cars.length; i++) {
 			
 			if(cars[i] != null) {
@@ -83,19 +80,27 @@ public class ParkingLot {
 			
 		while(true) {
 			
-			System.out.print("1. 추가 2. 삭제 3. 전체 0 종료 >>> ");
-			int input = sc.nextInt();
+			try {
+				
+				System.out.print("1. 추가 2. 삭제 3. 전체 0 종료 >>> ");
+				int input = sc.nextInt();
+				
+				switch(input) {
+				
+				case 1: addCar(); break;
+				case 2: deleteCar(); break;
+				case 3: printAllCars(); break;
+				case 0: System.out.println("주차관리 프로그램을 종료합니다."); return;
+				default : System.out.println("존재하지 않는 메뉴입니다.");
+				}
+				
+			} catch(InputMismatchException e) {
+				System.out.println("처리 명령은 정수(1~4, 0) 입니다.");
+				sc.next();
 			
-			switch(input) {
-			
-			case 1: addCar(); break;
-			case 2: deleteCar(); break;
-			case 3: printAllCars(); break;
-			case 0: System.out.println("주차관리 프로그램을 종료합니다."); return;
-			default : System.out.println("존재하지 않는 메뉴입니다.");
+			} catch(RuntimeException e) {
+				System.out.println(e.getMessage());
 			}
 		}
-	
-		
 	}
 }

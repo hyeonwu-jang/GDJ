@@ -109,6 +109,16 @@ public class Main {
 		map3.put("author", "허균");
 		map3.put("price", 40000);
 		
+		List<Map<String, Object>> arr = new ArrayList<Map<String, Object>>();
+		arr.add(map1);
+		arr.add(map2);
+		arr.add(map3);
+		
+		
+		
+		
+		
+		
 		List<Map<String, Object>> arrList = new ArrayList<Map<String, Object>>();
 		arrList.add(map1);
 		arrList.add(map2);

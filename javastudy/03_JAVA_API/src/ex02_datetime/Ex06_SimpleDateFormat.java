@@ -1,6 +1,7 @@
 package ex02_datetime;
 
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 public class Ex06_SimpleDateFormat {
@@ -20,7 +21,6 @@ public class Ex06_SimpleDateFormat {
 		
 		System.out.println(result1);
 		System.out.println(result2);
-		
 				
 				
 

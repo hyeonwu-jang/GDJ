@@ -75,6 +75,7 @@ public class Main {
 	public static void m3() {
 		
 		// try - catch - resources문
+		
 		// 1.resource는 자원을 의미함
 		// 2.여기서 자원은 스트림(stream)을 의미함
 		// 3.스트림의 종료(close)를 자동으로 처리하는 try-catch문을 의미함

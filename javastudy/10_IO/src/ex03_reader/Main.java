@@ -15,7 +15,6 @@ public class Main {
 		FileReader fr = null;
 	
 		try {
-			// FileReader 클래스 생성
 			// file 객체에 등록된 파일이 없으면 FileNotFoundException 발생
 			fr = new FileReader(file);
 			
@@ -33,24 +32,11 @@ public class Main {
 			// String str에 파일 내용 저장하기
 			
 			StringBuilder sb = new StringBuilder();
-		/*
-			while(true) {
-				c = fr.read();
-				if(c == -1) {
-					break;
-				}
+			
+			while((c = fr.read())!= -1) {					
 				sb.append((char)c);
 			}
-		*/// -----------------------------------------
-			
-			while((c = fr.read())!= -1) {					// 
-				sb.append((char)c);
-			}
-				
-				
-				
-				
-			
+
 			String str = sb.toString();
 			System.out.println(str);
 			
@@ -65,7 +51,6 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	public static void m2() {
@@ -98,7 +83,6 @@ public class Main {
 				for(int i = 0; i < readCnt; i++) { 	// 읽은 글자 수(readCnt)만큼 반복
 					System.out.print(cbuf[i]);
 				}
-				
 			}
 			
 		} catch(IOException e) {

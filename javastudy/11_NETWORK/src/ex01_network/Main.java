@@ -5,9 +5,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 public class Main {
 
@@ -20,8 +24,8 @@ public class Main {
 		// 구성
 		//
 		// http://s
-		// 프로토콜://	호스트    / 서버경로 ?파라미터 \ 값& 파라미터\값
-		// https://blog.naver.com/rattou_8/222840573499?isInf=true
+		// 프로토콜:// 호스트:포트번호  / 서버경로 ?파라미터=값&파라미터=값
+		// 	  https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=날씨
 		// 1) https : secure http, 하이퍼텍스트 전송 프로토콜(통신규약)
 		// 2) 호스트 : 서버주소
 		// 3) 서버경로 : URL Mapping
@@ -95,9 +99,10 @@ public class Main {
 			
 			// 바이트 입력 스트림
 			InputStream in = con.getInputStream();
-			
+		
 			// 문자 입력 스트림으로 변환
 			InputStreamReader reader = new InputStreamReader(in);
+			// InputStreamReader reader = new InputStreamReader(con.getInputStream()); // 97번 라인 InputStream 생략하여 한번에 처리한 코드
 			
 			// 모두 읽어서 StringBuilder에 저장
 			StringBuilder sb = new StringBuilder();
@@ -127,12 +132,37 @@ public class Main {
 		
 	}
 	
+	public static void m4() {
+		
+		// 인코딩 : UTF-8 방식으로 암호화
+		// 디코딩 : UTF-8 방식으로 복호화
+		// 원본데이터 -> 인코딩 -> 전송 -> 디코딩 -> 원본데이터
+		
+		try {
+			
+			// 원본데이터 
+			String str = "한글 english 12345 !@#$+";
+			
+			// 인코딩
+			String encode = URLEncoder.encode(str, "UTF-8");
+			System.out.println(encode);
+			
+			// 디코딩
+			String decode = URLDecoder.decode(encode, StandardCharsets.UTF_8);
+			System.out.println(decode);
+			
+		}catch(UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}		
+	}
+	
 	
 	public static void main(String[] args) {
 		
 //		m1();
 //		m2();
-		m3();
+//		m3();
+		m4();
 
 	}
 

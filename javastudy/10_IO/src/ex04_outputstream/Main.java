@@ -67,8 +67,8 @@ public class Main {
 			fos = new FileOutputStream(file);
 			bos = new BufferedOutputStream(fos);
 			
-			String str = "안녕하세요 반갑습니다.";
-			byte[] b = str.getBytes("UTF-8");
+			String str = "안녕하세요 반갑습니다.";		// String을 byte로 보내기
+			byte[] b = str.getBytes("UTF-8");			// getBytes()의 default는 charset이다. 문자열을 charset으로 받아 배열에 반환한다.
 			
 			bos.write(b);
 		

@@ -104,7 +104,7 @@ public class Main {
 			double height = 165.5;
 			
 			// 출력
-			dos.writeUTF(name);
+			dos.writeUTF(name);						// 변수를 내보낼 떄는 타입에 맞는 메소드를 이용하여 write
 			dos.writeInt(age);
 			dos.writeDouble(height);
 			

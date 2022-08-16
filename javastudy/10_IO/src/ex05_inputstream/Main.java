@@ -135,7 +135,7 @@ public class Main {
 			fis = new FileInputStream(file);
 			dis = new DataInputStream(fis);
 			
-			String name = dis.readUTF();								// readUTF(), writeUTF() 를 활용하여 InputStreamReader를 사용하지 않고 DataInputStream으로 바이트 문자열을 받고 쓸 수 있다.
+			String name = dis.readUTF();			// readUTF(), writeUTF() 를 활용하여 InputStreamReader를 사용하지 않고 DataInputStream으로 바이트 문자열을 받고 쓸 수 있다.
 			int age = dis.readInt();
 			double height = dis.readDouble();
 			

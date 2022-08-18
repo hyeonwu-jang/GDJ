@@ -44,7 +44,7 @@ public class Main {
 		
 		try {
 			
-			String serviceKey = "tuKJQnWosgochz4Xdrz/EnE0fod1HOfyo0ZK7gAZMn7bUHdBQNpbTN6zksDAGe2KOWYJLpKMYuvDJWjBI5aAvQ==";
+			String serviceKey = "bEQBRPHjt0tZrc7EsL0T8usfsZ1+wT+5jqamBef/ErC/5ZO6N7nYdRmrwR91bh5d3I1AQeY5qdbJOF6Kv0U1CQ==";
 			apiURL += "?pageNo=" + URLEncoder.encode("0", "UTF-8");
 			apiURL += "&numOfRows=" + URLEncoder.encode("100", "UTF-8");
 			apiURL += "&type=" + URLEncoder.encode("xml", "UTF-8");
@@ -164,9 +164,448 @@ public class Main {
 		con.disconnect();
 	}
 	
+	public static void m2() {
+		
+		String serviceKey = "bEQBRPHjt0tZrc7EsL0T8usfsZ1+wT+5jqamBef/ErC/5ZO6N7nYdRmrwR91bh5d3I1AQeY5qdbJOF6Kv0U1CQ==";
+		StringBuilder urlBuilder = new StringBuilder();
+		
+		try {
+			
+			urlBuilder.append("http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson");
+			urlBuilder.append("?serviceKey=").append(URLEncoder.encode(serviceKey, "UTF-8"));
+			urlBuilder.append("&startCreateDt=20220808");										// 인코딩이 필요없는 데이터 - 영문, 숫자
+			urlBuilder.append("&endCreateDt=20220812");
+			
+		} catch(UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		String apiURL = urlBuilder.toString();
+		
+		URL url = null;
+		HttpURLConnection con = null;
+		
+		try {
+			url = new URL(apiURL);
+			con = (HttpURLConnection)url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Content-Type", "application/xml; charset=UTF-8");
+			
+		} catch(MalformedURLException e) {
+			e.printStackTrace();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+		
+		try {
+			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			
+			String line = null;
+			while((line = br.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			
+			br.close();
+			
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		String response = sb.toString();
+		
+		File file = new File("c:\\storage", "api2.xml");
+		
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			bw.write(response);
+			bw.close();
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public static void m3() {
+			
+			// xml 파싱
+			
+			File file = new File("C:\\storage", "api2.xml");
+			
+			try {
+				
+				// api2.xml 문서 -> doc 객체
+				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder builder = factory.newDocumentBuilder();
+				Document doc = builder.parse(file);
+				
+				
+				// api2.xml 문서의 최상위 태그 -> root
+				Element root = doc.getDocumentElement();
+				
+				// <item>...</item> 태그 하나 == 특정 날짜의 데이터
+				NodeList items = root.getElementsByTagName("item");  // 태그 이름으로 찾기
+			
+				StringBuilder sb = new StringBuilder();
+				
+				for(int i = 0; i < items.getLength(); i++) {
+					Node item = items.item(i);						// [item: null] x 5
+					NodeList itemChildren = item.getChildNodes();
+					
+					
+					for(int j = 0; j < itemChildren.getLength(); j++) {
+						Node itemChild = itemChildren.item(j);
+						
+						if(itemChild.getNodeName().equals("stateDt")) {
+							sb.append(" 날짜 : ").append(itemChild.getTextContent());
+						}
+						
+						else if(itemChild.getNodeName().equals("decideCnt")) {
+							sb.append(" 확진자 : ").append(itemChild.getTextContent());
+						}
+
+						else if(itemChild.getNodeName().equals("deathCnt")) {
+							sb.append(" 사망자 : ").append(itemChild.getTextContent());
+						}
+					}
+					sb.append("\n");
+					
+				
+					
+					
+					// Node stateDt 			== <stateDt>20220812</stateDt>
+					// stateDt.getNodeName() 	== stateDt (태그이름)
+					// stateDt.getTextContent() == 20220812 (태그내부텍스트)
+					
+					
+				}
+				
+				System.out.println(sb.toString());
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+	
+	
+	public static void m4() {
+		
+		StringBuilder urlBuilder = new StringBuilder();
+		String serviceKey = "tuKJQnWosgochz4Xdrz/EnE0fod1HOfyo0ZK7gAZMn7bUHdBQNpbTN6zksDAGe2KOWYJLpKMYuvDJWjBI5aAvQ==";
+		
+		try {
+			
+			urlBuilder.append("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst");
+			urlBuilder.append("?serviceKey=" + URLEncoder.encode(serviceKey, "UTF-8"));
+			urlBuilder.append("&numOfRows=10");
+			urlBuilder.append("&pageNo=1");
+			urlBuilder.append("&base_date=20220818");
+			urlBuilder.append("&base_time=1100");
+			urlBuilder.append("&nx=55");
+			urlBuilder.append("&ny=127");
+			
+		} catch(UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		String apiURL = urlBuilder.toString();
+		
+		// 서버와 접속 = URL, 
+		
+		URL url = null;
+		HttpURLConnection con = null;
+		
+		try {
+			
+			url = new URL(apiURL);
+			con = (HttpURLConnection)url.openConnection();
+			
+		} catch(MalformedURLException e) {
+			e.printStackTrace();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		// Reader 준비 = Reader, StringBuilder, con code, 
+		
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+		
+		try {
+			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			
+			String line = null;
+			while((line = br.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			
+			br.close();
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		String response = sb.toString();
+		
+		// Writer 준비 = File, Writer
+		
+		File file = new File("c:\\storage", "api3.xml");
+		BufferedWriter bw = null;
+		
+		try {
+			bw = new BufferedWriter(new FileWriter(file));
+			bw.write(response);
+			bw.close();
+			
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void m6() {
+		
+		File file = new File("c:\\storage", "api3.xml");
+		
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(file);
+			
+			Element root = doc.getDocumentElement();
+			
+			NodeList items = root.getElementsByTagName("item");
+			for(int i = 0; i < items.getLength(); i++) {
+				// Node item = items.item(i);
+				Element item = (Element)items.item(i);	// Node -> Element 타입으로 다운캐스팅
+				Node category = item.getElementsByTagName("category").item(0);
+				Node obsrValue = item.getElementsByTagName("obsrValue").item(0);
+				String strCategory = null;
+				switch(category.getTextContent()) {
+				case "PTY" : strCategory = "강수형태"; break;
+				case "REH" : strCategory = "습도"; break;
+				case "RN1" : strCategory = "강수량(1시간)"; break;
+				case "T!H" : strCategory = "기온"; break;
+				case "UUU" : strCategory = "동서바람성분"; break;
+				case "VEC" : strCategory = "풍향"; break;
+				case "VVV" : strCategory = "남북바람성분"; break;
+				case "WSD" : strCategory = "풍속"; break;
+				
+				}
+				
+				System.out.println(strCategory + " : " + obsrValue.getTextContent());
+				
+				
+				
+				
+			}
+			
+			
+		} catch(Exception e) {
+			
+			
+		}
+		
+	}
+	
+	public static void m7() {
+		
+		String apiURL = "http://www.kma.go.kr/wid/queryDFSRSS.jsp?zone=5013061000";
+		
+		URL url = null;
+		HttpURLConnection con = null;
+			
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+		
+		try {
+			
+			url = new URL(apiURL);
+			con = (HttpURLConnection)url.openConnection();
+			
+			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			
+			String line = null;
+			while((line = br.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			
+			br.close();
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		File file = new File("c:\\storage", "api4.xml");
+		BufferedWriter bw = null;
+		
+		try {
+			
+			bw = new BufferedWriter(new FileWriter(file));
+			bw.write(sb.toString());
+			bw.close();
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(file);
+			
+			Element root = doc.getDocumentElement();
+			
+			StringBuilder sb = new StringBuilder();
+			
+			NodeList data = root.getElementsByTagName("data");
+			
+			data.
+			
+			Node title = );
+		
+					
+					
+
+			NodeList title = root.getElementsByTagName("title");
+			NodeList pubData = root.getElementsByTagName("pubData");
+			NodeList hour = root.getElementsByTagName("hour");
+			NodeList temp = root.getElementsByTagName("temp");
+			NodeList wfKor = root.getElementsByTagName("wfKor");
+			
+			
+			
+			System.out.println();
+			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	public static void m9() {
+		
+		try {
+			
+			// 접속
+			String apiURL = "https://www.kma.go.kr/XML/weather/sfc_web_map.xml";
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			
+			// 접속 확인
+			if(con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+				System.out.println("API 접속 실패");
+				return;
+			}
+			
+			// 바이트 입력 스트림 -> 문자 입력 스트림 -> 버퍼 추가
+			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			
+			File file = new File("C:\\storage", "sfc_web_map.xml");
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			
+			// readLine() 메소드를 이용한 복사
+			String line = null;
+			while((line = br.readLine()) != null) {
+				bw.write(line + "\n");
+			}
+			
+			// 닫기
+			bw.close();
+			br.close();
+			con.disconnect();
+			
+		} catch(MalformedURLException e) {
+			System.out.println("API 주소 오류");
+		} catch(IOException e) {
+			System.out.println(e.getMessage());
+			System.out.println("API 서버 오류");
+		}
+		
+	}
+	
+	public static void m10() {
+		
+		// <local stn_id="90" icon="03" desc="구름많음" ta="25.7">속초</local>
+		// 태그이름 : local, 속성 : stn_id ~ , 텍스트 : 속초
+		
+		File file = new File("c:\\storage", "sfc_web_map.xml");
+		
+		try {
+			
+			StringBuilder sb = new StringBuilder();
+	
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(file);
+			
+			Element root = doc.getDocumentElement(); // <current xmlns="current"> 태그
+			
+			
+			Element weather = (Element)root.getElementsByTagName("weather").item(0); // <weather year="2022" month="08" day="18" hour="15">
+			sb.append(weather.getAttribute("year") + "년 ");
+			sb.append(weather.getAttribute("month") + "월 ");
+			sb.append(weather.getAttribute("day") + "일 ");
+			sb.append(weather.getAttribute("hour") + "시\n");
+
+			NodeList locals = root.getElementsByTagName("local");
+			for(int i = 0; i < locals.getLength(); i++) {
+				Element local = (Element)locals.item(i);
+				sb.append(local.getTextContent() + " : ");
+				sb.append(local.getAttribute("ta") + "℃ ");
+				sb.append(local.getAttribute("desc") + "\n");
+				
+			}
+			
+			
+			System.out.println(sb.toString());
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	
+	
+	
 	public static void main(String[] args) {
 
-		m1();
+//		m1();
+//		m2();
+		m3();
+//		m4();
+//		m6();
+//		m7();
+//		m9();
+//		m10();
 		
 	}
 

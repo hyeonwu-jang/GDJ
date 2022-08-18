@@ -17,7 +17,7 @@ public class Main {
 		try {
 			
 			// 접속
-			String apiURL = "https://kma.go.kr/XML/weather/sfc_web_map.xml";
+			String apiURL = "https://www.kma.go.kr/XML/weather/sfc_web_map.xml";
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			

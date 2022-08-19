@@ -23,7 +23,6 @@ public class Main {
 		list.add("화");
 		list.add(0, "일");			// 일 월 화 순으로 저장됨
 		
-		
 		// 요소 제거
 		// 1. boolean remove(Object obj) : obj 제거, 성공하면 true 반환
 		// 2. Object remove(int index) : index 위치의 요소 제거. 제거한 요소 반환

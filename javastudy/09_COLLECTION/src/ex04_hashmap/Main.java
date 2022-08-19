@@ -31,7 +31,7 @@ public class Main {
 		// 삭제된 value가 반환됨
 		String removeItem = dictionary.remove("tomato");
 		System.out.println(removeItem);		// 토마토
-		
+		String.
 		// 값(Value) 확인
 		System.out.println(dictionary.get("apple"));	// 사과
 		System.out.println(dictionary.get("peach"));

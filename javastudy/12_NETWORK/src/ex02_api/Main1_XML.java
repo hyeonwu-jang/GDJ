@@ -20,7 +20,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class Main {
+public class Main1_XML {
 
 	// 요청
 	// 1. Request
@@ -377,6 +377,87 @@ public class Main {
 		
 	}
 	
+	
+public static void m5() {
+		
+		// 기상청41_단기예보 조회서비스
+		
+		// 인증키(Decoding)
+		String serviceKey = "bEQBRPHjt0tZrc7EsL0T8usfsZ1+wT+5jqamBef/ErC/5ZO6N7nYdRmrwR91bh5d3I1AQeY5qdbJOF6Kv0U1CQ==";
+
+		// API 주소	(주소 + 요청 파라미터)
+		StringBuilder urlBuilder = new StringBuilder();
+		try {
+			urlBuilder.append("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst");
+			urlBuilder.append("?serviceKey=").append(URLEncoder.encode(serviceKey, "UTF-8"));
+			urlBuilder.append("&numOfRows=10");
+			urlBuilder.append("&pageNo=1");
+			urlBuilder.append("&dataType=XML");
+			urlBuilder.append("&base_date=20220818");
+			urlBuilder.append("&base_time=1100");
+			urlBuilder.append("&nx=58");   // 서울특별시 금천구 가산동 좌표X
+			urlBuilder.append("&ny=125");  // 서울특별시 금천구 가산동 좌표Y
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		String apiURL = urlBuilder.toString();
+		
+		// API 주소 접속
+		URL url = null;
+		HttpURLConnection con = null;
+		
+		try {			
+			url = new URL(apiURL);
+			con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Content-Type", "application/xml; charset=UTF-8");
+		} catch(MalformedURLException e) {
+			System.out.println("API 주소 오류");
+		} catch(IOException e) {
+			System.out.println("API 접속 실패");
+		}
+		
+		// 입력 스트림 생성
+		// 1. 서버가 보낸 데이터를 읽어야 하므로 입력 스트림이 필요
+		// 2. 서버와 연결된 입력 스트림은 바이트 스트림이므로 문자 스트림으로 변환해야 함
+		BufferedReader reader = null;
+		StringBuilder sb = new StringBuilder();
+		try {
+			
+			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {
+				reader = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			
+			String line = null;
+			while((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			
+			// 스트림 종료
+			reader.close();
+			
+		} catch(IOException e) {
+			System.out.println("API 응답 실패");
+		}
+		
+		// API로부터 전달받은 xml 데이터
+		String response = sb.toString();
+		
+		// XML File 생성
+		File file = new File("C:\\storage", "api3.xml");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			bw.write(response);
+			bw.close();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public static void m6() {
 		
 		File file = new File("c:\\storage", "api3.xml");
@@ -423,91 +504,137 @@ public class Main {
 	}
 	
 	public static void m7() {
-		
-		String apiURL = "http://www.kma.go.kr/wid/queryDFSRSS.jsp?zone=5013061000";
-		
-		URL url = null;
-		HttpURLConnection con = null;
 			
-		BufferedReader br = null;
-		StringBuilder sb = new StringBuilder();
-		
-		try {
+			// 기상청 RSS
 			
-			url = new URL(apiURL);
-			con = (HttpURLConnection)url.openConnection();
+			// 제주특별자치도 서귀포시 중문동
+			String apiURL = "http://www.kma.go.kr/wid/queryDFSRSS.jsp?zone=5013061000";
 			
-			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else {
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			// 접속
+			URL url = null;
+			HttpURLConnection con = null;
+			try {
+				url = new URL(apiURL);
+				con = (HttpURLConnection)url.openConnection();
+			} catch(IOException e) {
+				System.out.println("접속 실패");
 			}
 			
-			String line = null;
-			while((line = br.readLine()) != null) {
-				sb.append(line + "\n");
-			}
-			
-			br.close();
-			
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-		
-		File file = new File("c:\\storage", "api4.xml");
-		BufferedWriter bw = null;
-		
-		try {
-			
-			bw = new BufferedWriter(new FileWriter(file));
-			bw.write(sb.toString());
-			bw.close();
-			
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(file);
-			
-			Element root = doc.getDocumentElement();
-			
+			// 응답 스트림 생성 및 응답 데이터 받기
+			BufferedReader reader = null;
 			StringBuilder sb = new StringBuilder();
+			try {
+				if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+					reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				} else {
+					reader = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+				}
+				String line = null;
+				while((line = reader.readLine()) != null) {
+					sb.append(line + "\n");
+				}
+			} catch(IOException e) {
+				System.out.println("응답 실패");
+			}
 			
-			NodeList data = root.getElementsByTagName("data");
+			// XML 파일 생성
+			File file = new File("C:\\storage", "api4.xml");
+			try {
+				BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+				writer.write(sb.toString());
+				writer.close();
+			} catch(IOException e) {
+				System.out.println("파일 생성 실패");
+			}
 			
-			data.
-			
-			Node title = );
-		
-					
-					
-
-			NodeList title = root.getElementsByTagName("title");
-			NodeList pubData = root.getElementsByTagName("pubData");
-			NodeList hour = root.getElementsByTagName("hour");
-			NodeList temp = root.getElementsByTagName("temp");
-			NodeList wfKor = root.getElementsByTagName("wfKor");
-			
-			
-			
-			System.out.println();
-			
-			
-		} catch(Exception e) {
-			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
-		
-	}
+	
+//	public static void m7() {
+//		
+//		String apiURL = "http://www.kma.go.kr/wid/queryDFSRSS.jsp?zone=5013061000";
+//		
+//		URL url = null;
+//		HttpURLConnection con = null;
+//			
+//		BufferedReader br = null;
+//		StringBuilder sb = new StringBuilder();
+//		
+//		try {
+//			
+//			url = new URL(apiURL);
+//			con = (HttpURLConnection)url.openConnection();
+//			
+//			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+//				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//			} else {
+//				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+//			}
+//			
+//			String line = null;
+//			while((line = br.readLine()) != null) {
+//				sb.append(line + "\n");
+//			}
+//			
+//			br.close();
+//			
+//		} catch(IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		File file = new File("c:\\storage", "api4.xml");
+//		BufferedWriter bw = null;
+//		
+//		try {
+//			
+//			bw = new BufferedWriter(new FileWriter(file));
+//			bw.write(sb.toString());
+//			bw.close();
+//			
+//		} catch(IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		try {
+//			DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
+//			DocumentBuilder builder = factory.newDocumentBuilder();
+//			Document doc = builder.parse(file);
+//			
+//			Element root = doc.getDocumentElement();
+//			
+//			StringBuilder sb = new StringBuilder();
+//			
+//			NodeList data = root.getElementsByTagName("data");
+//			
+//			data.
+//			
+//			Node title = );
+//		
+//					
+//					
+//
+//			NodeList title = root.getElementsByTagName("title");
+//			NodeList pubData = root.getElementsByTagName("pubData");
+//			NodeList hour = root.getElementsByTagName("hour");
+//			NodeList temp = root.getElementsByTagName("temp");
+//			NodeList wfKor = root.getElementsByTagName("wfKor");
+//			
+//			
+//			
+//			System.out.println();
+//			
+//			
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//	}
 	
 	
 	public static void m9() {
@@ -600,7 +727,7 @@ public class Main {
 
 //		m1();
 //		m2();
-		m3();
+//		m3();
 //		m4();
 //		m6();
 //		m7();

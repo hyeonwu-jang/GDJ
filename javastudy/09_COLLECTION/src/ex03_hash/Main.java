@@ -25,7 +25,7 @@ public class Main {
 		books.add(book1);
 		books.add(book2);
 		books.add(book3);
-		books.add(book4); // 중복저장 시도(정상 동작하려면 Book클래스에 HashCode(), equals() 메소드를 오버라이드 해야함.)
+		books.add(book4); // 중복저장 시도(정상 동작하려면 Book클래스에 HashCode(), equals() 메소드를 오버라이드 해야함 - source 메뉴에서 지원)
 
 		for(Book book : books) {
 			System.out.println(book);

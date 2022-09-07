@@ -19,7 +19,6 @@ public class Main {
 		FileInputStream fis = null;
 		
 		try {
-			
 			// 바이트 입력 스트림 생성
 			fis = new FileInputStream(file);
 			

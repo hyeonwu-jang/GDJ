@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data	// @Getter, @Setter, @ToString 등
+@Data  // @Getter, @Setter, @ToString 등
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

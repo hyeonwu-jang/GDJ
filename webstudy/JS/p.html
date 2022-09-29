@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        div {
+            border: 1px solid red;
+        }
+
+        #main {
+            width: 300px;
+            height: 300px;
+            position: relative;
+        }
+
+        #main > #prev_area {
+            position: absolute;
+            line-height: 300px;
+            left: 0;
+        }
+
+        #main > #next_area {
+            position: absolute;
+            line-height: 300px;
+            right: 0;
+        }
+
+        #main > #picture_area {
+            position: absolute;
+            width:70%;
+            height:100%;
+            line-height: 300px;
+            left: 43px;
+        }
+
+        img {
+            width: 100%;
+            padding: 39% 0;
+        }
+
+        button {
+            border: none;
+            background-color: white;
+        }
+
+        label:hover {
+            cursor: pointer;
+        }
+
+        label {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+
+    <div id="main">
+        <div id="prev_area">
+            <label id="prev" for="btn_prev">
+                <button id="btn_prev">이전</button>
+            </label>
+        </div>
+        <div id="picture_area">
+            <img src="../../images/">
+        </div>
+        <div id="next_area">
+            <label id="next" for="btn_next">
+                <button id="btn_next">이후</button>
+            </label>
+        </div>
+    </div>
+
+    <script>
+
+        var picture_origin = document.getElementById('picture_area');
+
+        var idx = 0;
+        var images = [
+            'animal1.jpg',
+            'animal2.jpg',
+            'animal3.jpg',
+            'animal4.jpg',
+            'animal5.jpg',
+            'animal6.jpg',
+            'animal7.jpg',
+            'animal8.jpg',
+            'animal9.jpg',
+            'animal10.jpg',
+        ]
+
+        picture_origin.style
+        
+
+
+    </script>
+
+</body>
+</html>

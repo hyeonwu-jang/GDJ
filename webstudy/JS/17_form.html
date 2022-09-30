@@ -14,6 +14,7 @@
         <button>검색</button>
         <input type="submit" value="네이버검색">
     </form>
+
     <script>
         // 문서객체
         var frm1 = document.getElementById('frm1');
@@ -23,7 +24,7 @@
         frm1.onsubmit = function(event) {
             if(query.value == '') {
                 alert('검색어를 입력하세요');
-                query.focus();
+                query.focus();                  // query로 포커스를 옮김
                 event.preventDefault(); // 기본이벤트 동작 방지(서브밋 동작 방지)
                 return;                 // 이벤트 리스너 종료
             }
@@ -31,7 +32,7 @@
 
     </script>
 
-    <!-- 2. <input type=button>을 이용한 서브밋 -------------------------------------->
+    <!-- 2. <input type=button> 버튼 클릭이벤트를 이용한 서브밋 -------------------------------------->
     <form id="frm2" action="https://www.google.com/search">
         <input type="text" name="q" id="q">
         <input type="button" value="구글검색" id="btn_google">
@@ -54,10 +55,12 @@
             frm2.submit();
         }
     </script>
+    
+    <hr>
 
     <!-- 연습. 이름이 2 ~ 6자 사이가 아니면 경고메시지 띄우고 서브밋 방지 ------------------------------------>
     <form id="frm3" action="/">
-        <label for="name">
+        <label for="name" style="display: inline;">
             이름
             <input type="text" name="name" id="name">
         </label>
@@ -68,13 +71,73 @@
         // 문서객체
         var frm3 = document.getElementById('frm3');
         var n = document.getElementById('name');
-
+        
         // 서브밋 이벤트
         frm3.onsubmit = function(event) {                // frm3의 대상임. n이 아님.
             if(n.value == '' || n.value.length > 6 || n.value.length < 2) {
                 alert('이름을 확인하세요');
                 event.preventDefault();
                 return;
+            }
+        }
+    </script>
+
+    <hr>
+
+    <!-- 3. 전체선택/개별선택 ----------------------------------------------------------------------->
+    <form id="frm4">
+        <label for="check_all" class="lbl_check_all">
+            <input type="checkbox" id="check_all">
+            <span>모두 동의합니다.</span>
+        </label>
+        <label for="service">
+            <input type="checkbox" id="service" class="check_one">
+            <span>이용약관 동의합니다.</span>
+        </label>
+        <label for="privacy">
+            <input type="checkbox" id="privacy" class="check_one">
+            <span>개인정보 동의합니다.</span>
+        </label>
+        <label for="location">
+            <input type="checkbox" id="location" class="check_one">
+            <span>위치정보 동의합니다.</span>
+        </label>
+        <label for="email">
+            <input type="checkbox" id="email" class="check_one">
+            <span>이메일수신 동의합니다.</span>
+        </label>
+    </form>
+    <style>
+        label {
+            display: block;
+            width: 500px;
+        }
+        .lbl_check_all {
+            padding-bottom: 10px;
+            border-bottom: 1px solid gray;
+        }
+
+    </style>
+    <script>
+        // 문서객체
+        var checkall = document.getElementById('check_all');
+        var checkone = document.getElementsByClassName('check_one');    // checkbox는 배열로 가져옴 ==> 동시 작동하는 로직을 짜기 위함.
+
+        // 전체선택 클릭 이벤트                                         // 이벤트 작성 시 개발자도구 properties의 (속성, 값) 참고.
+        checkall.onclick = function(event) {
+            for(let i = 0; i < checkone.length; i++) {
+                checkone[i].checked = checkall.checked;                 // 전체선택(checkall)의 체크 여부와 동일하게 하위요소(checkone)이 반응하는 코드
+            }
+        }
+
+        // 개별선택 클릭 이벤트
+        for(let i = 0; i < checkone.length; i++){
+            checkone[i].onclick = function(event) {
+                let checkcount = 0;
+                for(let j = 0; j < checkone.length; j++) {
+                    checkcount += checkone[j].checked;                  // checkone[j].checked의 true는 1, false는 0처럼 Number타입에서 자동 인식되는 것을 이용함.
+                }
+                checkall.checked = (checkcount == checkone.length);     // 변수속성이 T, F 값을 갖기 떄문에 T, F값을 반환하는 로직
             }
         }
 

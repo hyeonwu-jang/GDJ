@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<!-- 1. GET방식 요청 : <a> 태그 -->
+	<div>
+		<a href="http://localhost:9090/01_Servlet/AnchorServlet">정상 링크1</a>
+	</div>
+	
+	<!-- (/) 시작하면 컨텍스트패스로 인식, (/) 생략하면 매핑으로 인식 -->
+	<!-- 컨텍스트패스, 매핑을 분명하게 지정하는 링크2 형식을 사용할 것 -->
+	<div>
+		<a href="/01_Servlet/AnchorServlet">정상 링크2(추천)</a> 
+	</div>
+	
+	<div>
+		<a href="/AnchorServlet">불량 링크1(슬래시로 시작하면 컨텍스트 패스로 인식)</a>	
+	</div>
+	<div>
+		<a href="01_Servlet/AnchorServlet">불량 링크2(컨텍스트패스는 슬래시로 시작해야 함)</a>
+	</div>
+	<div>
+		<a href="/AnchorServlet">불량 링크3(URL 매핑으로 인식되지만 HTML 문서의 경로에 따라 실행 여부가 다름)</a>	
+	</div>
+	
+	
+	<!-- 연습. -->
+	<!-- 응답 : 1 + 2 = 3 -->
+	<div>
+		<a href="/01_Servlet/AnchorServlet?a=1&b=2">더하기</a>
+	</div>
+	
+	<hr>
+	
+	<!-- 2. GET 방식 요청 : 자바스크립트 location -->
+	<div>
+		<button id="btn1">링크1</button>
+		<button id="btn2" data-name="민경태">링크2</button>		<!-- 태그 안에 데이터(변수)를 저장하는 속성 : data- / data안의 변수를 가져올 떄는 data('변수') -->
+	</div>														<!-- data- 뒤의 name이 변수임 -->
+	<script src="../js/jquery-3.6.1.min.js"></script>
+	<script>
+		$('#btn1').on('click', function(event){
+			// location.href = '/01_Servlet/LocationServlet';
+			open('/01_Servlet/LocationServlet');	// open(url, [name], [features])	/* open은 새창에서 열림 */
+		});
+		$('#btn2').click(function(event){
+			location.href = '/01_Servlet/LocationServlet?param=' + $(this).data('name');
+		});
+	</script>
+	
+	
+	
+		
+	
+	
+	
+</body>
+</html>

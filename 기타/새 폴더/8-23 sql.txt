@@ -1,7 +1,0 @@
-DDL
-- 데이터베이스 객체 추가/수정/삭제
-- 작업 취소 불가
-- 데이터베이스 객체(사용자, 테이블 등)
-- 추가 : CREATE USER, CREATE TABLE
-- 수정 : ALTER USER, ALTER TABLE
-- 삭제 : DROP USER, DROP TABLE

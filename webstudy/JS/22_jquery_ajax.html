@@ -178,11 +178,20 @@
                     'url': 'sfc_web_map.xml',
                     'dataType': 'xml',
                     'success': function(data) {
-                        $.each($(data).find('local'), function(i, local){
+                        $.each($(data).find('local'), function(i, region){
                             var tr = $('<tr>');
-                            tr.append($('<td>').text());
-                            tr.append($('<td>').attr('desc'));
-                            tr.append($('<td>').attr('ta'));
+                            tr.append($('<td>').text($(region).text()));
+                            tr.append($('<td>').text($(region).attr('desc')));
+                            tr.append($('<td>').text($(region).attr('ta')));
+
+                            // tr.append('<td>' + $(region).text() + '</td>');               // 짬뽕
+                            // tr.append('<td>' + $(region).attr('desc') + '</td>');
+                            // tr.append('<td>' + $(region).attr('ta') + '</td>');
+                            
+                            // var tr = '<tr>';
+                            // tr += '<td>' + $(region).text();
+                            // tr += '<td>' + $(region).attr('desc');
+                            // tr += '<td>' + $(region).attr('ta');
                             $('#weather').append(tr);
                         });
                     }     

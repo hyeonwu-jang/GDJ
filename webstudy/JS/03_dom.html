@@ -70,10 +70,10 @@
         <h1>Hello World</h1>
     </div>   
     <script>
-        var a = document.getElementById('box');
-        console.log(a.textContent);
-        console.log(a.innerHTML);
-        a.textContent = '안녕 세계';          /* h1 태그가 사라지고 내용이 변경됨 */
+        var a = document.getElementById('box'); /* ★★★★★★★★★★★★★ */
+        console.log(a.textContent);             /* 결과 : Hello World => a 객체의 자식인 <h1>의 textContent 출력 */
+        console.log(a.innerHTML);               
+        a.textContent = '안녕 세계';            /* h1 태그가 사라지고 내용이 변경됨(덮어쓰기) */
     </script>
 <!------------------------------------------------------------------------------------------------------------------------->
     <div id="box2">

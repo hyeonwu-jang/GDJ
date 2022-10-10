@@ -17,6 +17,9 @@ public class Prac02A extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
+		// 리다이렉트에서의 인자 전달
+		
 		// 요청
 		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");

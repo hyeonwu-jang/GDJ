@@ -89,8 +89,6 @@ public class HelloServlet extends HttpServlet {		// Servlet은 HttpServlet을 �
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// TODO Auto-generated method stub
-		
 		// response : 사용자에게 전달할 때 사용
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		

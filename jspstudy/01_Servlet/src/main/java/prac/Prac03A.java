@@ -40,7 +40,7 @@ public class Prac03A extends HttpServlet {
 		}
 		
 		// 파일 객체
-		File file = new File(dir, filename);
+		File file = new File(dir, filename);	// (경로, 파일명)
 		
 		// 문자 출력 스트림
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
@@ -53,6 +53,8 @@ public class Prac03A extends HttpServlet {
 		
 		// 이동
 		response.sendRedirect("/01_Servlet/Prac03B?filename=" + URLEncoder.encode(filename, "UTF-8"));
+		
+		// redirect는 경로를 숨길 수 있다.
 		
 		
 	}

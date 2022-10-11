@@ -2,17 +2,13 @@ package prac;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.Format;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.graalvm.compiler.code.DataSection.Data;
 
 
 // http://localhost:9090/01_Servlet/now 주소를 입력하면

@@ -119,5 +119,4 @@ public class MovieServlet extends HttpServlet {
 			doGet(request, response);
 		}
 
-
 }

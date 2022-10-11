@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.1.min.js"></script>
+</head>
+<body>
+	<div style="display: flex">
+		<div>
+			<input type="text" id="query2" placeholder="책 검색">
+			<button id="btn1">XML클릭</button>&nbsp;&nbsp;&nbsp;&nbsp;
+		</div>
+		<div>
+			<input type="text" id="query" placeholder="책 검색">
+			<select id="display">
+				<option value="1">1</option>
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="50">50</option>
+				<option value="100">100</option>
+			</select>
+			<button id="btn2">JSON클릭</button>
+		</div>
+	</div>
+	<div>
+		<table border="1">
+			<thead>
+				<tr>
+					<td>제목(title)</td>
+					<td>사진&링크(image&link)</td>
+					<td>저자(author)</td>
+					<td>판매가격(discount)</td>
+					<td>출판사(publisher)</td>
+					<td>소개(description)</td>
+					<td>출간일(pubdate)</td>
+				</tr>
+			</thead>
+			<tbody id="book"></tbody>
+		</table>
+	</div>
+	
+	<script>
+		/* XML클릭 */
+		$('#btn1').on('click', function(event) {
+			$.ajax({
+				/* 요청 */
+				type: 'GET',
+				url: '/01_Servlet/MyXML',
+				data: 'query2=' + $('#query2').val(),
+				/* 응답 */
+				dataType: 'xml',
+				success: function(resData) {
+					$('#book').empty();
+					$.each($(resData).find('item'), function(i, elem) {
+						var tr = $('<tr>');
+						tr.append($('<td>').html($(elem).find('title').text()));
+						
+						tr.append($('<td>').html($('<a>').attr('href', $(elem).find('link').text())
+								           .html($('<img>').attr('width', '80px').attr('height', '120px')
+								           .attr('src', $(elem).find('image').text()))));
+						
+						tr.append($('<td>').html($(elem).find('author').text()));
+						tr.append($('<td>').html($(elem).find('discount').text()));
+						tr.append($('<td>').html($(elem).find('publisher').text()));
+						tr.append($('<td>').html($(elem).find('description').text()));
+						tr.append($('<td>').html($(elem).find('pubdate').text()));
+						tr.appendTo('#book');
+					});
+				},
+				error: function(jqXHR) {
+					console.log('status : ' + jqXHR.status);
+					console.log('responseText : ' + jqXHR.responseText);
+				}
+			});
+		});
+		
+		/* JSON클릭 */
+		$('#btn2').on('click', function(event){ 
+			$.ajax({
+				/* 요청 */
+				type: 'GET',
+				url: '/01_Servlet/MyJSON',
+				data: 'query=' + $('#query').val() + '&display=' + $('#display').val(),
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData) {
+					// console.log(resData);     데이터 확인용
+					$('#book').empty();
+					$.each(resData.items, function(i, elem){
+						var tr = $('<tr>');
+						tr.append($('<td>').html(elem.title));
+						tr.append($('<td>').html($('<a>').attr('href', elem.link).html($('<img>').attr('src', elem.image).attr('width', '80px').attr('height', '120px'))));
+						tr.append($('<td>').html(elem.author));
+						tr.append($('<td>').html(elem.discount));
+						tr.append($('<td>').html(elem.publisher));
+						tr.append($('<td>').html(elem.description));
+						tr.append($('<td>').html(elem.pubdate));
+						tr.appendTo('#book');
+					});
+				},
+				error: function(jqXHR) {
+					console.log('status : ' + jqXHR.status);
+					console.log('responseText : ' + jqXHR.responseText);
+				}
+			});
+		});
+	</script>
+	
+</body>
+</html>

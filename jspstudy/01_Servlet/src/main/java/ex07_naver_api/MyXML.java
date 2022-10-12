@@ -1,4 +1,4 @@
-package ex06;
+package ex07_naver_api;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,30 +17,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/MyJSON")
-public class MyJSON extends HttpServlet {
+@WebServlet("/MyXML")
+public class MyXML extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+		// 클라이언트 아이디, 시크릿		
 		String clientId = "4H16u9bbdy10BBd8HKjl";
 		String clientSecret = "FSJHue2eMD";
 		
+		// 요청 파라미터
 		request.setCharacterEncoding("UTF-8");
 		String query = request.getParameter("query");
-		String display = request.getParameter("display");
 		
+		// 검색어 UTF-8 인코딩
 		try {
 			query = URLEncoder.encode(query, "UTF-8");
 		} catch(UnsupportedEncodingException e) {
 			response.setContentType("text/plain; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("검색어 인코딩 실패");
+			out.println("인코딩 실패");
 			out.close();
 		}
 		
-		String apiURL = "https://openapi.naver.com/v1/search/book.json?query=" + query + "&display=" + display;
+		// API 접속
+		String apiURL = "https://openapi.naver.com/v1/search/book.xml?query=" + query;
 		URL url = null;
 		HttpURLConnection con = null;
 		
@@ -50,17 +53,20 @@ public class MyJSON extends HttpServlet {
 		} catch(MalformedURLException e) {
 			response.setContentType("text/plain; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("API URL 주소 오류");
+			out.println("API URL 오류");
 			out.close();
 		} catch(IOException e) {
 			response.setContentType("text/plain; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("API URL 연결 실패");
+			out.println("API 연결 실패");
 			out.close();
 		}
 		
+		// API 요청
+		 // 요청 메소드
 		try {
 			con.setRequestMethod("GET");
+			 // 요청 헤더
 			con.setRequestProperty("X-Naver-Client-Id", clientId);
 			con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 		} catch(IOException e) {
@@ -70,7 +76,8 @@ public class MyJSON extends HttpServlet {
 			out.close();
 		}
 		
-		BufferedReader br = null; 
+		// API 응답 스트림 생성(정상 스트림, 에러 스트림)
+		BufferedReader br = null;
 		try {
 			int responseCode = con.getResponseCode();
 			if(responseCode == HttpURLConnection.HTTP_OK) {
@@ -85,6 +92,7 @@ public class MyJSON extends HttpServlet {
 			out.close();
 		}
 		
+		// API 데이터 저장하기
 		StringBuilder sb = new StringBuilder();
 		String line = null;
 		try {
@@ -94,16 +102,16 @@ public class MyJSON extends HttpServlet {
 		} catch(IOException e) {
 			response.setContentType("text/plain; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("API 응답 실패");
+			out.println("API 응답 데이터 저장 실패");
 			out.close();
 		}
 		
-		response.setContentType("application/json; charset=UTF-8");
+		// client.html로 API 응답 결과 보내기
+		response.setContentType("application/xml; charset=UTF-8");
+		
 		PrintWriter out = response.getWriter();
 		out.println(sb.toString());
 		out.close();
-		
-		
 		
 	}
 

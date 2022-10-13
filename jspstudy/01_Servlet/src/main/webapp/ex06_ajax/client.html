@@ -45,7 +45,7 @@
 				data: 'name=장현우&age=30',
 				/* 응답 */
 				dataType: 'json',
-				success: function(resData) {	// resData는 JSON 데이터가 응답되므로 자바스크립트 객체로 처리하면 됨
+				success: function(resData) {	// resData는 JSON 데이터(객체)가 응답되므로 자바스크립트 객체로 처리하면 됨
 					box2.html('<h1>이름 : ' + resData.name + ', 나이 : ' + resData.age + '살</h1>');
 				},
 				error: function(jqXHR) {

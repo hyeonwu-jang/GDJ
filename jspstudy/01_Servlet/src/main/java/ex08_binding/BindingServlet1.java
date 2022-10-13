@@ -35,7 +35,7 @@ public class BindingServlet1 extends HttpServlet {
 		// 3. 사용 메소드
 		// 		1) getAttribute('속성')     : 해당 속성 값 가져오기 (캐스팅이 필요할 수 있음)
 		//		2) setAttribute('속성', 값) : 속성에 값 저장하기    (Object 타입으로 저장)
-		//      3) removeAttribut('속성')   : 해당 속성 삭제하기
+		//      3) removeAttribute('속성')   : 해당 속성 삭제하기
 		
 		// ServletContext
 		ServletContext ctx = getServletContext();	// 또는 request.getServletContext();

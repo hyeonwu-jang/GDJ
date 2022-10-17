@@ -16,7 +16,7 @@
 		속성(Attribute) 만들기 태그
 		
 		1. <c:set var="속성명" value="값" scope="영역">
-		2. 영역 : page(디폴트), request, session, application // 영역 생략하면 page 사용
+		2. scope 영역 : page(디폴트), request, session, application // 영역 생략하면 page 사용
 		
 	 --%>
 	 
@@ -24,6 +24,7 @@
 	 	pageContext.setAttribute("name", "장현우");
 	 	pageContext.setAttribute("age", "30");
 	  --%>
+	  
 	 <c:set var="name" value="장현우" scope="page" />
 	 <c:set var="age" value="30" scope="page" />
 	 <c:set var="isAdult" value="${age >= 20}" scope="page" />

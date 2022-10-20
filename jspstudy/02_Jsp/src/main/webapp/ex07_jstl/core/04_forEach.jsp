@@ -83,8 +83,8 @@
 		pageContext.setAttribute("board", board);
 	%>
 	
-	${board.boardNo}, ${board.title}, ${board.hit}<br>
-	${board.getBoardNo()}, ${board.getTitle()}, ${board.getHit()}<br>
+		${board.boardNo}, ${board.title}, ${board.hit}<br>
+		${board.getBoardNo()}, ${board.getTitle()}, ${board.getHit()}<br>
 	
 	<%-- 
 		${board.title}은 ${board.getTitle()}을 자동으로 호출한다.
@@ -96,12 +96,12 @@
 		문제. 임의의 Board 객체를 3개 저장한 리스트
 	 --%>
  	<%
-		List<Board> boards = new ArrayList<>();
+ 		List<Board> boards = new ArrayList<>();
 		boards.add(new Board(1000, "asd", 10));
 		boards.add(new Board(2000, "fff", 20));
 		boards.add(new Board(3000, "rrr", 30));
 		pageContext.setAttribute("boards", boards);
-	%>
+ 	%>
 	 
 	 <table border="1">
 	 	<thead>

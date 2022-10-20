@@ -16,11 +16,11 @@
 				// 제목, 내용 모두 변경이 없는 경우
 				// 기존 제목, 내용   : ${board.title},      ${board.content}
 				// 입력한 제목, 내용 : $('#title').val(),   $('#content').val()
-				if('${board.title}' == $('#title').val() && '${board.content}' == $('#content').val()) {
+				/* if('${board.title}' == $('#title').val() && '${board.content}' == $('#content').val()) { --> '${board.content}'의 길이가 길어지면 에러 발생
 					alert('변경된 내용이 없습니다.');
 					event.preventDefault();
 					return;
-				}
+				} */
 				
 				// 제목이 비어 있는 경우
 				if($('#title').val() == '') {

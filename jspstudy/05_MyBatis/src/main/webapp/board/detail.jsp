@@ -12,11 +12,15 @@
 <script>
 	$(document).ready(function(){
 		
+		$('#btn_edit').click(function(event) {
+			location.href = '${contextPath}/board/edit.do?boardNo=${board.boardNo}';
+		});
+		
 		$('#btn_remove').click(function(event) {
 			if(confirm('삭제하시겠습니까?')){
-				location.href = '${contextPath}/board/remove.do?boardNo=${board.boardNo}'
+				location.href = '${contextPath}/board/remove.do?boardNo=${board.boardNo}';
 			} else {
-				alert('취소되었습니다.')
+				alert('취소되었습니다.');
 			}
 		});
 		

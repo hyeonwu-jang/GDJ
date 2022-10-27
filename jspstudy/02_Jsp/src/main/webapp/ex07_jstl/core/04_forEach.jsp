@@ -42,7 +42,7 @@
 	
 	<%-- 4. 배열 --%>
 	<%
-		String[] menus = {"튀김", "떡볶이", "순대"};
+	String[] menus = {"튀김", "떡볶이", "순대"};
 		pageContext.setAttribute("menus", menus);
 	%>
 	
@@ -54,7 +54,7 @@
 	
 	<%-- 5. 리스트 --%>
 	<%
-		List<String> seasons = Arrays.asList("봄", "여름", "가을", "겨울");
+	List<String> seasons = Arrays.asList("봄", "여름", "가을", "겨울");
 		pageContext.setAttribute("seasons", seasons);
 	%>
 	
@@ -66,7 +66,7 @@
 	
 	<%-- 6. Map (반복이 필요한 건 아님) --%>
 	<%
-		Map<String, Integer> map = new HashMap<>();
+	Map<String, Integer> map = new HashMap<>();
 		map.put("begin", 1);
 		map.put("end", 10);
 		pageContext.setAttribute("map", map);
@@ -76,7 +76,7 @@
 	
 	<%-- 7. 객체 (반복이 필요한 건 아님) --%>
 	<%
-		Board board = new Board();
+	Board board = new Board();
 		board.setBoardNo(1);
 		board.setTitle("도대체 언제까지...");
 		board.setHit(100);
@@ -96,11 +96,11 @@
 		문제. 임의의 Board 객체를 3개 저장한 리스트
 	 --%>
  	<%
- 		List<Board> boards = new ArrayList<>();
-		boards.add(new Board(1000, "asd", 10));
-		boards.add(new Board(2000, "fff", 20));
-		boards.add(new Board(3000, "rrr", 30));
-		pageContext.setAttribute("boards", boards);
+ 	List<Board> boards = new ArrayList<>();
+ 	 			boards.add(new Board(1000, "asd", 10));
+ 	 			boards.add(new Board(2000, "fff", 20));
+ 	 			boards.add(new Board(3000, "rrr", 30));
+ 	 			pageContext.setAttribute("boards", boards);
  	%>
 	 
 	 <table border="1">

@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
-import service.NoticeService;
-import service.NoticeServiceImpl;
+import service.MemberService;
+import service.MemberServiceImpl;
 
-@WebServlet("*.no")
+@WebServlet("*.me")
 
-public class MemberController extends HttpServlet {
+public class NoticeController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
        
@@ -29,16 +29,28 @@ public class MemberController extends HttpServlet {
 		String contextPath = request.getContextPath();
 		String urlMapping = requestURI.substring(contextPath.length());
 		
-		// NoticeServiceImpl 객체 생성(
-		NoticeService service = new NoticeServiceImpl();
+		// MemberServiceImpl 객체 생성(
+		MemberService service = new MemberServiceImpl();
 		
 		// ActionForward 객체
 		ActionForward af = null;
 		
 		// 요청에 따른 메소드 선택 및 실행
 		switch(urlMapping) {
-		case "/notice/list.no":
-			af = service.findAllNotices(request);
+		case "/member/login.me":
+			af = service.login(request, response);
+			break;
+		case "/member/logout.me":
+			af = service.logout(request, response);
+			break;
+		case "/member/join.me":
+			af = new ActionForward("/member/join.jsp", false);
+			break;
+		case "/member/register.me":
+			service.register(request, response);  // af 없이 register() 메소드 내부에서 직접 이동
+			break;
+		case "/member/cancel.me":
+			service.cancel(request, response);  // af 없이 cancel() 메소드 내부에서 직접 이동
 			break;
 		
 		// 매핑 잘못 작성한 경우

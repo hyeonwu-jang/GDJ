@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
-import service.MemberService;
-import service.MemberServiceImpl;
+import service.NoticeService;
+import service.NoticeServiceImpl;
 
-@WebServlet("*.me")
+@WebServlet("*.no")
 
 public class NoticeController extends HttpServlet {
 	
@@ -29,28 +29,16 @@ public class NoticeController extends HttpServlet {
 		String contextPath = request.getContextPath();
 		String urlMapping = requestURI.substring(contextPath.length());
 		
-		// MemberServiceImpl 객체 생성(
-		MemberService service = new MemberServiceImpl();
+		// NoticeServiceImpl 객체 생성(
+		NoticeService service = new NoticeServiceImpl();
 		
 		// ActionForward 객체
 		ActionForward af = null;
 		
 		// 요청에 따른 메소드 선택 및 실행
 		switch(urlMapping) {
-		case "/member/login.me":
-			af = service.login(request, response);
-			break;
-		case "/member/logout.me":
-			af = service.logout(request, response);
-			break;
-		case "/member/join.me":
-			af = new ActionForward("/member/join.jsp", false);
-			break;
-		case "/member/register.me":
-			service.register(request, response);  // af 없이 register() 메소드 내부에서 직접 이동
-			break;
-		case "/member/cancel.me":
-			service.cancel(request, response);  // af 없이 cancel() 메소드 내부에서 직접 이동
+		case "/notice/list.no":
+			af = service.findAllNotices(request);
 			break;
 		
 		// 매핑 잘못 작성한 경우

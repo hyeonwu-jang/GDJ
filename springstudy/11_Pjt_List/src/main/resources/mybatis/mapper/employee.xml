@@ -43,6 +43,7 @@
 		                  FROM DEPARTMENTS D RIGHT OUTER JOIN EMPLOYEES E
 		                    ON D.DEPARTMENT_ID = E.DEPARTMENT_ID
 		                 ORDER BY HIRE_DATE DESC) A) B
+		 WHERE B.RN BETWEEN #{begin} AND #{end}
 	<!--                  
 		 WHERE B.RN BETWEEN #{begin} AND #{end}     #{} 는 문자열로 가져옴
 		 WHERE B.RN BETWEEN '1' AND '10'
@@ -88,11 +89,12 @@
 					   </where>
 		 		         ORDER BY HIRE_DATE DESC) A) B
 		 WHERE B.RN BETWEEN #{begin} AND #{end}
-		
-		   
-		  
-		  
-		
+	</select>
+	
+	<select id="selectAutoCompleteList" parameterType="String" resultType="EmpDTO">
+		SELECT DISTINCT EMAIL, LAST_NAME, FIRST_NAME
+		  FROM EMPLOYEES 
+		 WHERE EMAIL LIKE CONCAT(#{param}, '%')	OR LAST_NAME LIKE CONCAT(#{param}, '%') OR FIRST_NAME LIKE CONCAT(#{param}, '%');
 	</select>
 	
 	

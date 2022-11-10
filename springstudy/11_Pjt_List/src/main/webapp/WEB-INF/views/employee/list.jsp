@@ -73,6 +73,27 @@
 			}
 		});
 		
+		// 자동 완성
+		$('#param').keyup(function(){
+			$('#auto_complete').empty();
+			$.ajax({
+				// 요청
+				type: 'get',
+				url: '${contextPath}/emp/autoComplete',
+				data: 'param=' + $(this).val(),
+				// 응답
+				dataType: 'json',
+				success: function(resData) {
+					if(resData.status == 200) {
+						$.each(resData.list, function(i, emp){
+							$('#auto_complete')
+							.append($('<option>').val(emp.email));
+						});
+					}
+				}
+			})
+		});
+		
 	});
 </script>
 </head>
@@ -103,6 +124,19 @@
 				<input type="button" value="전체사원조회" id="btn_all">
 			</span>
 		</form>
+	</div>
+	
+	<div>
+		<select name="target" id="target">
+			<option value="">::: 선택 :::</option>
+			<option value="FIRST_NAME">이름</option>
+			<option value="LAST_NAME">성</option>
+			<option value="EMAIL">이메일</option>
+		</select>
+		<input type="text" id="param" name="param" list="auto_complete">
+		<datalist id="auto_complete">
+			
+		</datalist>
 	</div>
 	
 	<hr>

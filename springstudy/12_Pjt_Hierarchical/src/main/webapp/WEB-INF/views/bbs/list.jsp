@@ -23,6 +23,14 @@
 	});
 
 </script>
+<style>
+	.lnk_remove {
+		cursor: pointer;
+	}
+	.blind {
+		display: none;
+	}
+</style>
 </head>
 <body>
 
@@ -47,37 +55,76 @@
 					<td>제목</td>
 					<td>IP</td>
 					<td>작성일</td>
-					<td></td>
+					<td>삭제</td>
 				</tr>
 			</thead>
-			<tbody>
-				<c:forEach items="${bbsList}" var="bbs" varStatus="vs">
-					<tr>
-						<c:if test="${bbs.state == 1}">
+				<tbody>
+				<c:forEach var="bbs" items="${bbsList}" varStatus="vs">
+					<c:if test="${bbs.state == 1}">
+						<tr>
 							<td>${beginNo - vs.index}</td>
 							<td>${bbs.writer}</td>
-							<td>${bbs.title}</td>
+							<td>
+								<!-- DEPTH에 따른 들여쓰기 -->
+								<c:forEach begin="1" end="${bbs.depth}" step="1">
+									&nbsp;&nbsp;
+								</c:forEach>
+								<!-- 답글은 [RE] 표시 -->
+								<c:if test="${bbs.depth > 0}">
+									[RE]
+								</c:if>
+								<!-- 제목 -->
+								${bbs.title}
+								<!-- 답글달기 버튼 -->
+								<%--
+									1단 답글로 운용하는 경우 아래와 같이 처리한다.
+									<c:if test="${bbs.depth == 0}">
+										<input type="button" value="답글" class="btn_reply_write">
+									</c:if>
+								--%>
+								<input type="button" value="답글" class="btn_reply_write">
+								<script>
+									$('.btn_reply_write').click(function(){
+										$('.reply_write_tr').addClass('blind');
+										$(this).parent().parent().next().removeClass('blind');
+									});
+								</script>
+							</td>
 							<td>${bbs.ip}</td>
-							<td>${bbs.createDate}</td>	
+							<td>${bbs.createDate}</td>
 							<td>
 								<form method="post" action="${contextPath}/bbs/remove">
 									<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
-									<a id="lnk_remove${bbs.bbsNo}">X</a>
+									<a class="lnk_remove" id="lnk_remove${bbs.bbsNo}">X</a>
 								</form>
 								<script>
-									$('#lnk_remove${bbs.bbsNo}').click(function() {
-										if(confirm('삭제할까요?')) {
+									$('#lnk_remove${bbs.bbsNo}').click(function(){
+										if(confirm('삭제할까요?')){
 											$(this).parent().submit();
 										}
 									});
 								</script>
 							</td>
-						</c:if>
-						<c:if test="${bbs.state == 0}">
+						</tr>
+						<tr class="reply_write_tr blind">
+							<td colspan="6">
+								<form method="post" action="${contextPath}/bbs/reply/add">
+									<div><input type="text" name="writer" placeholder="작성자" required></div>
+									<div><input type="text" name="title" placeholder="제목" required></div>
+									<div><button>답글달기</button></div>
+									<input type="hidden" name="depth" value="${bbs.depth}">
+									<input type="hidden" name="groupNo" value="${bbs.groupNo}">
+									<input type="hidden" name="groupOrder" value="${bbs.groupOrder}">
+								</form>
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${bbs.state == 0}">
+						<tr>
 							<td>${beginNo - vs.index}</td>
 							<td colspan="5">삭제된 게시글입니다</td>
-						</c:if>
-					</tr>
+						</tr>
+					</c:if>
 				</c:forEach>
 			</tbody>
 			<tfoot>
@@ -87,6 +134,9 @@
 			</tfoot>
 		</table>
 	</div>
+
+
+
 
 </body>
 </html>

@@ -26,7 +26,8 @@
 	function fn_idCheck() {
 		
 		$('#id').keyup(function() {
-			// 정규식
+			// 정규식(4~20자, 소문자+숫자+특수문자( - , _ )조합,  
+			let regId = /^[0-9a-z][0-9a-z-_]{3,19}$/;
 			
 			// 중복체크
 			$.ajax({

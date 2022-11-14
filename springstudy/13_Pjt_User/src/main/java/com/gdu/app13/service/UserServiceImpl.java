@@ -12,6 +12,9 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import com.gdu.app13.mapper.UserMapper;
@@ -19,11 +22,21 @@ import com.gdu.app13.util.SecurityUtil;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor  // field의 @Autowired 처리
+@PropertySource(value = {"classpath:email.properties"})
 @Service
 public class UserServiceImpl implements UserService {
-
+	
+	// 이메일을 보내는 사용자 정보
+	@Value(value = "${mail.username}")
+	private String username;  // 본인 지메일 주소
+	
+	@Value(value = "${mail.password}")
+	private String password;  // 발급 받은 앱 비밀번호
+	
+	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
 	private SecurityUtil securityUtil;
 	
 	@Override

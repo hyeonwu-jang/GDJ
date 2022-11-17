@@ -23,7 +23,9 @@ public interface UserMapper {
 	public int deleteUser(int userNo);
 	public int insertRetireUser(RetireUserDTO retireUser);
 	
+	// 
+	public int updateSessionInfo(UserDTO user);
 	
-	
+	public int updateUserPassword(UserDTO user);
 	
 }

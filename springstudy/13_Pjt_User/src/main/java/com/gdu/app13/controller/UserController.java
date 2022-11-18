@@ -22,17 +22,17 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/")
+	@GetMapping(value="/")
 	public String index() {
 		return "index";
 	}
 	
-	@GetMapping("/user/agree")
+	@GetMapping(value="/user/agree")
 	public String agree() {
 		return "user/agree";
 	}
 	
-	@GetMapping("/user/join/write")
+	@GetMapping(value="/user/join/write")
 	public String joinWrite(@RequestParam(required=false) String location
 			               , @RequestParam(required=false) String promotion
 			               , Model model) {
@@ -59,36 +59,46 @@ public class UserController {
 		return userService.sendAuthCode(email);
 	}
 	
-	@PostMapping("/user/join")
+	@PostMapping(value="/user/join")
 	public void join(HttpServletRequest request, HttpServletResponse response) {
 		userService.join(request, response);
 	}
 	
-	@PostMapping("/user/retire")
+	@PostMapping(value="/user/retire")
 	public void retire(HttpServletRequest request, HttpServletResponse response) {
 		userService.retire(request, response);
 	}
 	
-	@GetMapping("/user/login/form")
+	@GetMapping(value="/user/login/form")
 	public String loginForm(HttpServletRequest request, Model model) {
 		
 		// 요청 헤더 referer : 이전 페이지의 주소가 저장(http://localhost:9090/app13/)
 		model.addAttribute("url", request.getHeader("referer"));  // 로그인 후 되돌아 갈 주소 url
+		
+		// 네이버 로그인
+		model.addAttribute("apiURL", userService.getNaverLoginApiURL(request));
+		
 		return "user/login";
 	}
 	
-	@PostMapping("/user/login")
+	@PostMapping(value="/user/login")
 	public void login(HttpServletRequest request, HttpServletResponse response) {
 		userService.login(request, response);
 	}
 	
-	@GetMapping("/user/logout")
+	@GetMapping(value="/user/naver/login")
+	public void naverLogin(HttpServletRequest request) {
+		userService.getNaverLoginTokenNProfile(request);
+	}
+	
+	
+	@GetMapping(value="/user/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		userService.logout(request, response);
 		return "redirect:/";
 	}
 	
-	@GetMapping("/user/check/form")
+	@GetMapping(value="/user/check/form")
 	public String requiredLogin_checkForm() {
 		return "user/check";
 	}
@@ -108,4 +118,20 @@ public class UserController {
 	public void requiredLogin_modifyPw(HttpServletRequest request, HttpServletResponse response) {
 		userService.modifyPassword(request, response);
 	}
+	
+	@GetMapping(value="/user/sleep/display")
+	public String sleepDisplay() {
+		return "user/sleep";
+	}
+	
+	@PostMapping(value="/user/restore")
+	public void restore(HttpServletRequest request, HttpServletResponse response) {
+		userService.restoreUser(request, response);
+	}
+	
+	
+	
+	
+	
+	
 }

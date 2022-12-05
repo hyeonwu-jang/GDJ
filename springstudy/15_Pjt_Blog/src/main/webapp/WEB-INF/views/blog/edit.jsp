@@ -1,73 +1,104 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="../layout/header.jsp">
-	<jsp:param value="${blog.blogNo}번 수정" name="title"/>
+	<jsp:param value="블로그수정" name="title"/>
 </jsp:include>
-<script>
-function getContextPath() {
-	var begin = location.href.indexOf(location.origin) + location.origin.length;
-	var end = location.href.indexOf("/", begin + 1);
-	return location.href.substring(begin, end);
-}
 
-$(document).ready(function() {
+<script>
 	
-	console.log(getContextPath());
+	// contextPath를 반환하는 자바스크립트 함수
+	function getContextPath() {
+		var begin = location.href.indexOf(location.origin) + location.origin.length;
+		var end = location.href.indexOf("/", begin + 1);
+		return location.href.substring(begin, end);
+	}
 	
-	$('#content').summernote({
-		width: 800,
-		height: 400,
-		lang: 'ko-KR',
-		toolbar: [
-		    // [groupName, [list of button]]
-		    ['style', ['bold', 'italic', 'underline', 'clear']],
-		    ['font', ['strikethrough', 'superscript', 'subscript']],
-		    ['fontsize', ['fontsize']],
-		    ['color', ['color']],
-		    ['para', ['ul', 'ol', 'paragraph']],
-		    ['height', ['height']],
-		    ['insert', ['link', 'picture', 'video']]
-		]
-	
+	$(document).ready(function(){
+		
+		// summernote
+		$('#content').summernote({
+			width: 800,
+			height: 400,
+			lang: 'ko-KR',
+			toolbar: [
+			    // [groupName, [list of button]]
+			    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    ['font', ['strikethrough', 'superscript', 'subscript']],
+			    ['fontsize', ['fontsize']],
+			    ['color', ['color']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+			    ['insert', ['link', 'picture', 'video']]
+			],
+			callbacks: {
+				onImageUpload: function(files){
+					var formData = new FormData();
+					formData.append('file', files[0]);
+					$.ajax({
+						type: 'post',
+						url: getContextPath() + '/blog/uploadImage',
+						data: formData,
+						contentType: false,
+						processData: false,
+						dataType: 'json',
+						success: function(resData){
+							$('#content').summernote('insertImage', resData.src);
+						}
+					});
+				}
+			}
+		});
+		
+		// 목록
+		$('#btn_list').click(function(){
+			location.href = getContextPath() + '/blog/list';
+		});
+		
+		// 서브밋
+		$('#frm_edit').submit(function(event){
+			if($('#title').val() == ''){
+				alert('제목은 필수입니다.');
+				event.preventDefault();
+				return;
+			}
+		});
+		
 	});
+	
 </script>
 
 
-	<h1>${blog.title}</h1>
+<div>
+
+	<h1>작성 화면</h1>
 	
+	<form id="frm_edit" action="${contextPath}/blog/modify" method="post">
 	
-	<div>
-		<h1>수정 화면</h1>
-		<form id="frm_modify" method="post" action="${contextPath}/'blog/detail" method="post">
-			<div>
-				<label for="title">제목</label>
-				<input type="text" name="title" id="title" value="${blog.title}">
-			</div>
-			<div>
-				<label for="content">내용</label>
-				<textarea id="content" name="content" id="content"></textarea>
-			</div>
-			<div>
-				<button>작성완료</button>
-				<input type="reset" value="입력초기화">
-				<input type="button" value="목록" id="btn_list">
-			</div>
-		</form>
-	</div>
+		<input type="hidden" name="blogNo" value="${blog.blogNo}">
+	
+		<div>
+			<label for="title">제목</label>
+			<input type="text" name="title" id="title" value="${blog.title}">
+		</div>
 		
-			<input type="button" value="수정" id="btn_edit_blog">
-		<script>
-			$('#btn_edit_blog').click(function() {
-				$('#frm_btn').attr('action', '${contextPath}/blog/edit');
-				$('#frm_btn').submit();
-			});
-		</script>
-		</form>
-	</div>
+		<div>
+			<label for="content">내용</label>
+			<textarea name="content" id="content">${blog.content}</textarea>				
+		</div>
+		
+		<div>
+			<button>수정완료</button>
+			<input type="reset" value="작성초기화">
+			<input type="button" value="목록" id="btn_list">
+		</div>
+		
+	</form>
 	
+</div>
+
 </body>
 </html>
